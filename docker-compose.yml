@@ -20,6 +20,7 @@ services:
 
   front:
     build: ./front/
+    working_dir: /opt/app
     volumes:
     - ./front/:/opt/app
     ports:
