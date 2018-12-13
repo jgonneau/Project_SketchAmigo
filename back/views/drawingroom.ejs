@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Room N°<%= roomid %></title>
+	<meta charset="utf-8" />
+	<link href='https://fonts.googleapis.com/css?family=Sofia' rel='stylesheet'>
+	<link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+		<div id="pinfos"><h2>Room N°<%= roomid %></h2><h3>Connected:</h3><p id="listusers"></p><a href="/checkrooms"><button>Quit</button></a></div>
+		<div id="pcanvas"><canvas id="drawing" width="700" height="500" ></canvas></div>
+		<div id="ppalette">
+		<label>Crayon</label>
+		<select id="sle">
+			<option id="ssmall">small</option>
+			<option id="smedium">medium</option>
+			<option id="slarge">large</option>
+		</select>
+		<br>
+		<div>Selected : <span id="selcolor">black</span></div>
+		<table id="palette"><tr><td id="pred"></td><td id="porange"></td><td id="ppink"></td><td id="pyellow"></td></tr><tr><td id="pgreen"></td><td id="pdgreen"></td><td id="pcyan"></td><td id="pblue"></td></tr><tr><td id="ppurple"></td><td id="pwhite"></td><td id="pgray"></td><td id="pblack"></td></tr></table><br><button id="rstdrw">Reset drawing</button></div>
+		<div id="puserschat"><p id="chatlines"></p><form id="sendboard" onsubmit="return sendMessage()"><input id="message" type="text"/><button id="smessage" onclick="return sendMessage()" type="button">Send</button></form></div>
+	
+	<script src="/socket.io/socket.io.js"></script>
+	<script src="https://code.jquery.com/jquery-1.11.1.js"></script>
+	<script>
+		var socket = io.connect('http://localhost:3000/drawingroom');
+		
+		$('#rstdrw').click(function () {
+			socket.emit('clear');
+		});
+		
+		function sendMessage() {
+			socket.emit('sendMessage', $('#message').val());
+			$('#message').val("");
+			return false;
+		}
+		
+		setInterval(function() {
+			socket.emit('requestUsersConnected');
+		}, 1000);
+		
+		socket.on('listUsersConnected', function(data) {
+			$('#listusers').html(data.user1+'<br>'+data.user2+'<br>'+data.user3+'<br>'+data.user4);
+		});
+		
+		socket.on('newChatMessage', function(data) {
+			$('#chatlines').append('<span class="nusr">'+data.from+'</span>:  '+data.message+'<hr>');
+		});
+		
+		
+	</script>
+	<script src="/js/canvasscript.js" ></script>
+</body>
+</html>

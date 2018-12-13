@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Login</title>
+	<meta charset="utf-8" />
+	<link rel="stylesheet" href="css/style.css"/>
+</head>
+<body>
+		<h1>Log now to draw things with people !</h1>
+		
+		<p class="m_info"><%= m_info %></p>
+		<form class="smallform" action="/authentification" method="POST">
+			<input type="text" name="username" placeholder="Username.." required/>
+			<input type="password" name="password" placeholder="Password.." required/>
+			<input type="submit" value="Ok!" />
+		</form>
+
+</body>
+</html>

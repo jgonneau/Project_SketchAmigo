@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Welcome !</title>
+	<meta charset="utf-8" />
+	<link href='https://fonts.googleapis.com/css?family=Sofia' rel='stylesheet'>
+	<link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+		<h1>Create or join a room !</h1>
+		<a href="/createroom"><button id="createroom" disabled>- Create new room -</button></a>
+		<p id="rooms"></p>
+		<div id="blogout"><a href="/logout"><button>Log out</button></a></div>
+		
+	<script src="/socket.io/socket.io.js"></script>
+	<script src="https://code.jquery.com/jquery-1.11.1.js"></script>
+	<script>
+		var socket = io.connect('http://localhost:3000/checkrooms');
+		
+		setInterval(function() {
+			socket.emit('requestRooms');
+		}, 3000);
+		
+		socket.on('getRooms', function(data) {
+			$('#rooms').html('');
+			for (var i  = 0; i< data.rooms.length; i++)
+			{
+				var slots = "";
+				for (var j = 1; j <= 4; j++)
+				{
+					if (data.rooms[i]['drawer'+j] != '')
+						slots += '<span class="userSlot"> | &block;</span>';
+					else
+						slots += '<span class="emptySlot"> | &block;</span>';
+				}
+				$('#rooms').append('<span style="color: red;"><a href="/drawingroom/'+data.rooms[i].roomid+'">'+data.rooms[i].roomname+' '+slots+'</a></span>');
+			}
+			document.getElementById('createroom').disabled = false;
+		});
+	</script>
+</body>
+</html>

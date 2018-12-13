@@ -1,0 +1,16 @@
+{
+  "name": "project-sketchamigo-front",
+  "version": "1.0.0",
+  "description": "Front du projet SketchAmigo",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "sketch",
+    "amigo",
+    "project"
+  ],
+  "author": "jgonneau kapserge",
+  "license": "ISC"
+}

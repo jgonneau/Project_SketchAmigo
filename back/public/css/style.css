@@ -1,0 +1,289 @@
+* {
+	margin: 0;
+	padding: 0;
+}
+
+body {
+	background-color: lightblue;
+	color: #FFF;
+	text-shadow: 1px 1px #555;
+	text-align: center;
+	font-family: Sofia, Times, serif;
+	box-sizing: border-box;
+}
+
+#m_info
+{
+	color: red;
+	font-weight: 50px;
+}
+
+.bigtitles, h1 {
+	padding: 15px;
+	background-color: #FFF;
+	width: 50%;
+	margin-left: auto;
+	margin-right: auto;
+	color: #9370DB;
+	border: solid 1px #888;
+	border-radius: 0px 0px 25px 25px;
+}
+
+#hboutons {
+	width: 300px;
+	margin-left: auto;
+	margin-right: auto;
+	margin-top: 50px;
+}
+
+#hbsignup, #hblogin {
+	font-size: 20px;
+	width: 100px;
+	height: 150px;
+	padding: 20px;
+	margin: 10px;
+	border-radius: 60px;
+	background-color: #E6E6FA;
+	color: #20B2AA;
+	text-decoration: none;
+	box-shadow: 2px 2px #B0C4DE;
+}
+
+#hbsignup:hover, #hblogin:hover {
+	background-color: #778899;
+	color: #FFF;
+}
+
+.smallform {
+	background-color: #F8FAFB;
+	width: 40%;
+	margin-left: auto;
+	margin-right: auto;
+	margin-top: 20px;
+	padding: 2em 1em;
+	border-radius: 18px;
+}
+
+.smallform input {
+	width: 90%;
+	padding: 20px;
+	margin: 10px;
+	box-sizing: border-box;
+}
+
+#createroom {
+	margin-top: 30px;
+	width: 40%;
+	padding: 20px;
+	font-family: Sofia;
+	background-color: #61e064;
+	border: solid 1px #888;
+	border-radius: 25px;
+	text-shadow: 1px 1px #EEE;
+	box-shadow: 2px 2px #B0C4DE;
+	font-size: 22px;
+}
+
+#createroom:active {
+	box-shadow: inset 2px 2px #555;
+}
+
+.emptySlot
+{
+	color: purple;
+}
+
+.userSlot
+{
+	color: red;
+}
+
+#pinfos {
+	position: fixed;
+	width: 15%;
+	background-color: #82aba7;
+	height: 100vh;
+	box-shadow: 0px 0px 20px 4px rgba(0, 0, 0, 0.1);
+}
+
+#pinfos h2 {
+	margin-left: auto;
+	margin-right: auto;
+	padding: 20px 0px 20px 0px;
+	background-color: #080c35;
+	font-size: 14px;
+	box-shadow: 2px 2px rgba(0, 0, 0, 0.2) inset;
+}
+
+#pcanvas {
+	width: 700px;
+	height: 100%;
+	//margin-left: 15%;
+	margin-left: auto;
+	margin-right: auto;
+	/*top: 50%;
+    transform: translateY(-50%);
+    -webkit-transform: translateY(-50%);
+    -o-transform: translateY(-50%);
+    -ms-transform: translateY(-50%);*/
+}
+
+#drawing {
+	//position: relative;
+	/*top: 50%;
+    transform: translateY(-50%);
+    -webkit-transform: translateY(-50%);
+    -o-transform: translateY(-50%);
+    -ms-transform: translateY(-50%);*/
+	//width: 700px;
+	height: 500px;
+	/*margin-left: auto;
+	margin-right: auto;*/
+	background-color: #FFF;
+	border: solid 1px black;
+	box-shadow: 2px 2px rgba(0, 0, 0, 0.3);
+}
+
+#ppalette {
+	position: fixed;
+	left: 0px;
+	bottom: 0px;
+	width: 15%;
+	z-index: 5;
+}
+
+#palette {
+	border: solid 1px lightblue;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+#palette td {
+	border: solid 1px rgba(0, 0, 0, 0.1);
+	width: 30px;
+	height: 30px;
+	opacity: 0.5;
+}
+
+#pred {
+	background-color: #ff0000;
+}
+
+#porange {
+	background-color: #ff9900;
+}
+
+#ppink {
+	background-color: #FFC0CB;
+}
+
+#pyellow {
+	background-color: #ffff00;
+}
+
+#pgreen {
+	background-color: #90EE90;
+}
+
+#pdgreen {
+	background-color: #006400;
+}
+
+#pcyan {
+	background-color: #00FFFF;
+}
+
+#pblue {
+	background-color: #0000ff;
+}
+
+#ppurple {
+	background-color: #ff00ff;
+}
+
+#pwhite {
+	background-color: #ffffff;
+}
+
+#pgray {
+	background-color: #808080;
+}
+
+#pblack {
+	background-color: #000000;
+	opacity: 1;
+}
+
+#selcolor {
+	color: #000000;
+}
+
+#puserschat {
+	width: 15%;
+	border: solid 1px gray;
+	position: fixed;
+	top: 0px;
+	right: 0px;
+	height: 100vh;
+	background-color: rgba(255, 255, 255, 0.9);
+	box-shadow: 0px 0px 20px 4px rgba(0, 0, 0, 0.1);
+}
+
+#sendboard {
+	margin: 0px;
+	padding: 0px;
+	height: 30px;
+	width: 100%;
+	position: absolute;
+	bottom: 0px;
+	background-color: whitesmoke;
+	z-index: 10;
+}
+
+#sendboard input {
+	box-sizing: border-box;
+	margin: 0px;
+	padding: 0px;
+	height: 30px; 
+	float: left;
+}
+
+#message
+{
+	width: 80%;
+	font-family: Arial, serif;
+	color: #000;
+}
+
+#smessage
+{
+	width: 20%;
+	font-size: 8px;
+}
+
+.nusr
+{
+	color: blue;
+	font-style: italic;
+}
+
+#chatlines
+{
+	font-family: Arial, serif;
+	color: #000;
+	text-align: left;
+	padding: 5px;
+}
+
+#blogout
+{
+	position: absolute;
+	top: 0px;
+	right: 0px;
+	padding: 10px;
+	border-radius: 0px 0px 0px 25px;
+}
+
+.mred {
+	color: #ddd;
+}
