@@ -41,6 +41,7 @@ const	express			= require('express'),
 		.get('/drawingroom/', routes.requireLogin, routes.drawingroom )
 		.get('/drawingroom/:roomid', routes.requireLogin, routes.drawingroom )
 		.get('/logout', routes.requireLogin, routes.logout )
+		.get('/serge', routes.serge )
 		.get('/w', routes.noLogin, function (req, res) {
 				res.send('Oi:'+req.session.user);
 			})

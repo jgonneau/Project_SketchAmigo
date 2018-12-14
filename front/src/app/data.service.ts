@@ -6,4 +6,8 @@ import { HttpClient } from '@angular/common/http';
 export class DataService {
 
   constructor(private http: HttpClient) { }
+
+  getTest(){
+    return this.http.get("http://localhost:3000/");
+  }
 }

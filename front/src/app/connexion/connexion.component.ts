@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-
+import { Router, ActivatedRoute } from '@angular/router'; 
+import { HttpClientModule } from '@angular/common/http';
 @Component({
   selector: 'app-connexion',
   templateUrl: './connexion.component.html',
@@ -10,7 +11,7 @@ export class ConnexionComponent implements OnInit {
   loginForm: FormGroup;
   submitted = false;
   success = false;
-
+  returnUrl: string;
   constructor(private formBuilder: FormBuilder) { }
 
   ngOnInit() {
@@ -18,7 +19,13 @@ export class ConnexionComponent implements OnInit {
       username: ['', Validators.required],
       password: ['', Validators.required]
   });
+  
   }
+  get Acces() { 
+
+    return this.loginForm.controls;
+   }
+
   onSubmit() {
     this.submitted = true;
 

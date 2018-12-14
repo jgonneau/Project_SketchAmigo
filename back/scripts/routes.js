@@ -7,6 +7,9 @@ var bcrypt		= require('bcrypt'),
 
 module.exports = {
 
+	serge	: function (req, res) {
+		res.send('home');
+	},
 	home	: function (req, res) {
 		res.render('home');
 	},

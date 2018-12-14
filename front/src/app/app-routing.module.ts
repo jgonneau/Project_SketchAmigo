@@ -5,6 +5,7 @@ import { ConnexionComponent } from './connexion/connexion.component';
 import { ContactComponent } from './contact/contact.component';
 import { InscriptionComponent } from './inscription/inscription.component';
 import { DrawingComponent } from './drawing/drawing.component';
+
 //const routes: Routes = [];
 const routes: Routes = [
   { path: '', component: HomeComponent },
