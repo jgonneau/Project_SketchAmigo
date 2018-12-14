@@ -10,7 +10,9 @@ import { HomeComponent } from './home/home.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { InscriptionComponent } from './inscription/inscription.component';
-import { DrawingComponent } from './drawing/drawing.component';
+import { DashboardComponent } from './dashboard/dashboard.component';
+import { DrawingroomComponent } from './drawingroom/drawingroom.component';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -19,7 +21,9 @@ import { DrawingComponent } from './drawing/drawing.component';
     ContactComponent,
     HomeComponent,
     InscriptionComponent,
-    DrawingComponent
+    DashboardComponent,
+    DrawingroomComponent
+    
   ],
   imports: [
     BrowserModule,

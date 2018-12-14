@@ -3,6 +3,27 @@
 	padding: 0;
 }
 
+nav {
+	justify-self: right;
+  padding-top: 50px;
+  padding-right: 30px;
+  padding-bottom: 50px;
+  padding-left: 80px;
+}
+ul {
+        list-style-type: none;
+        margin: 0; padding: 0;
+    }
+        li {
+            float: left;
+        }
+            a {
+                padding: 1.5em;
+                text-transform: uppercase;
+                font-size: .8em;
+            }
+               
+
 body {
 	background-color: lightblue;
 	color: #FFF;
@@ -25,8 +46,8 @@ body {
 	margin-left: auto;
 	margin-right: auto;
 	color: #9370DB;
-	border: solid 1px #888;
-	border-radius: 0px 0px 25px 25px;
+
+	
 }
 
 #hboutons {
@@ -118,7 +139,7 @@ body {
 #pcanvas {
 	width: 700px;
 	height: 100%;
-	//margin-left: 15%;
+	margin-left: 15%;
 	margin-left: auto;
 	margin-right: auto;
 	/*top: 50%;
@@ -129,13 +150,13 @@ body {
 }
 
 #drawing {
-	//position: relative;
+	position: relative;
 	/*top: 50%;
     transform: translateY(-50%);
     -webkit-transform: translateY(-50%);
     -o-transform: translateY(-50%);
     -ms-transform: translateY(-50%);*/
-	//width: 700px;
+	width: 700px;
 	height: 500px;
 	/*margin-left: auto;
 	margin-right: auto;*/
@@ -278,12 +299,28 @@ body {
 #blogout
 {
 	position: absolute;
-	top: 0px;
-	right: 0px;
-	padding: 10px;
-	border-radius: 0px 0px 0px 25px;
+	top: 50px;
+	right: 5px;
+	padding: auto;
+	background-color:#fff;
+	border-radius: 8px;
+
+
+	
+	
 }
 
 .mred {
 	color: #ddd;
 }
+button,input, textarea {
+	display: block;
+	width: 50%;
+	margin-left: auto;
+	margin-right: auto;
+	padding: 1em;
+	border-radius: 25px;
+	
+}
+            
+        
