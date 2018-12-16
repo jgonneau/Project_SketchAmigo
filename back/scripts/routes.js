@@ -12,7 +12,7 @@ module.exports = {
 		res.render('home');
 	},
 	signup	: function (req, res) {
-		res.render('signup.ejs');
+		res.render('signup.ejs', {m_info: ""});
 	},
 	registering : function (req, res) {
 
@@ -26,7 +26,7 @@ module.exports = {
 				if (err)
 				{
 					 res.render('show_error.ejs', { msg_err: 'Database error!' });
-					 return { msg_err: 'Database error!' };
+					 return ;
 				}
 				if (!exist)
 				{
@@ -45,10 +45,10 @@ module.exports = {
 								}
 								else
 								{
-									res.render('show_info.ejs', { msg_err: "User registered!" });
-
+									res.render('signup.ejs', { m_info: "User registered!" });
+									
 									////Si utilisation appel de front-end
-									res.json({"status":"OK", "message":"User registered!"})
+									//res.json({"status":"OK", "message":"User registered!"})
 									return ;
 								}
 							});
@@ -57,10 +57,10 @@ module.exports = {
 				}
 				else
 				{
-					res.render('show_error.ejs', { msg_err: 'Username already exist!' });
+					res.render('signup.ejs', { m_info: 'Username already exist!' });
 
 					////Si utilisation appel de front-end
-					res.json({"status":"KO", "message":"Username already exists!"})
+					//res.json({"status":"KO", "message":"Username already exists!"})
 					return { msg_err: 'Username already exist!' };
 				}
 			});
@@ -99,7 +99,7 @@ module.exports = {
 							exist.save();
 
 							////Si utilisation appel de front-end
-							res.json({"status":"OK", "message":"User connected!", "sessionid":activeSession.user})
+							//res.json({"status":"OK", "message":"User connected!", "sessionid":activeSession.user})
 
 							//On le redirige vers l'espace des rooms
 							res.redirect('/checkrooms');
@@ -111,17 +111,19 @@ module.exports = {
 								activeSession.destroy();
 
 								////Si utilisation appel de front-end
-								res.json({"status":"KO", "message":"Erreurs identifiants!"})
+								//res.json({"status":"KO", "message":"Erreurs identifiants!"})
 
-								res.render('show_error.ejs', { msg_err: 'Error credentials!' });
+								//Le mot de passe ne correspond pas
+								res.render('login.ejs', {m_info: "Error credentials"});
 								return ;
 						}
 					});
 				}
 				else
 				{
-					res.render('show_error.ejs', { msg_err: 'Username not found!' });
-					return 'Username not found!';
+					//Utilisateur non trouvé
+					res.render('login.ejs', {m_info: "Error credentials"});
+					return ;
 				}
 			});
 		}

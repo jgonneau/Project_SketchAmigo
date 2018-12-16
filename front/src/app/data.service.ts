@@ -20,6 +20,7 @@ export class DataService {
       this.http.post("http://localhost:3000/registering", {"username": username, "password": password})
       .subscribe((response) => {
 
+		//Reception du message statut
         //message = response.message;
 
       },
@@ -27,7 +28,7 @@ export class DataService {
         console.log(error)
       });
 
-      return message;
+      return ""; //Renvoi message
     }
 
     //method permettant de se connecter au serveur

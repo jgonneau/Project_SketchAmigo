@@ -2,20 +2,20 @@
 
 <form [formGroup]="messageForm" (ngSubmit)="onSubmit()">
 
-    <h5 *ngIf="success">Your form is valid!</h5>
+    <h5 *ngIf="success">Message envoyé</h5>
 
     <label>
       Nom:
       <input type="text" formControlName="name">
       <div *ngIf="submitted && messageForm.controls.name.errors" class="error">
-        <div *ngIf="messageForm.controls.name.errors.required">saisir votre nom</div>
+        <div *ngIf="messageForm.controls.name.errors.required">Saisir votre nom</div>
       </div>
     </label>
     <label>
       Email:
       <input type="text" formControlName="email">
       <div *ngIf="submitted && messageForm.controls.email.errors" class="error">
-        <div *ngIf="messageForm.controls.email.errors.required">saisir votre email</div>
+        <div *ngIf="messageForm.controls.email.errors.required">Saisir votre email</div>
       </div>
     </label>
   
@@ -28,16 +28,7 @@
     </label>
  <br>
  <br>
-    <input type="submit" value="Envoyé message" class="cta">
+    <input type="submit" value="Envoyer message" class="cta">
   
   </form>
 
-  <div *ngIf="submitted" class="results">
-    <strong>Name:</strong> 
-    <span>{{ messageForm.controls.name.value }}</span>
-    
-    <strong>email:</strong> 
-    <span>{{ messageForm.controls.email.value }}</span>
-    <strong>Message:</strong> 
-    <span>{{ messageForm.controls.message.value }}</span>
-  </div>
