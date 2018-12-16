@@ -7,7 +7,7 @@ import { NavComponent } from './nav/nav.component';
 import { ConnexionComponent } from './connexion/connexion.component';
 import { ContactComponent } from './contact/contact.component';
 import { HomeComponent } from './home/home.component';
-import { ReactiveFormsModule } from '@angular/forms';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { InscriptionComponent } from './inscription/inscription.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
@@ -23,13 +23,13 @@ import { DrawingroomComponent } from './drawingroom/drawingroom.component';
     InscriptionComponent,
     DashboardComponent,
     DrawingroomComponent
-    
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    ReactiveFormsModule 
+    FormsModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

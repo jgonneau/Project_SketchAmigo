@@ -1,38 +1,28 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router, ActivatedRoute } from '@angular/router'; 
+import { DataService } from '../data.service';
+import { Router, ActivatedRoute } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
+
 @Component({
   selector: 'app-connexion',
   templateUrl: './connexion.component.html',
   styleUrls: ['./connexion.component.css']
 })
+
 export class ConnexionComponent implements OnInit {
-  loginForm: FormGroup;
-  submitted = false;
-  success = false;
-  returnUrl: string;
-  constructor(private formBuilder: FormBuilder) { }
+
+  usrn:string = ""
+  psswd:string = ""
+  imessage:string = ""
+
+  constructor(private data: DataService) { }
 
   ngOnInit() {
-    this.loginForm = this.formBuilder.group({
-      username: ['', Validators.required],
-      password: ['', Validators.required]
-  });
-  
   }
-  get Acces() { 
 
-    return this.loginForm.controls;
-   }
-
-  onSubmit() {
-    this.submitted = true;
-
-    if (this.loginForm.invalid) {
-        return;
-    }
-
-    this.success = true;
+  //method appelé lors de validation formulaire
+  login() {
+    //Appel de la method pour se connecter au serveur
+    this.imessage = this.data.loginToServer(this.usrn, this.psswd);
   }
 }

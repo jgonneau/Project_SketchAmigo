@@ -1,32 +1,28 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { DataService } from '../data.service';
+
 @Component({
   selector: 'app-inscription',
   templateUrl: './inscription.component.html',
   styleUrls: ['./inscription.component.css']
 })
+
 export class InscriptionComponent implements OnInit {
-  InscriptionForm: FormGroup;
-  submitted = false;
-  success = false;
-  constructor(private formBuilder: FormBuilder) { }
+
+  usrn:string = ""
+  psswd:string = ""
+  imessage:string = ""
+
+  constructor(private data: DataService) { }
 
   ngOnInit() {
-    this.InscriptionForm = this.formBuilder.group({
-      firstName: ['', Validators.required],
-      lastName: ['', Validators.required],
-      username: ['', Validators.required],
-      password: ['', [Validators.required, Validators.minLength(6)]]
-  });
   }
-  
-  onSubmit() {
-    this.submitted = true;
 
-    if (this.InscriptionForm.invalid) {
-        return;
-    }
+  //method appelé à la validation formulaire
+  registering() {
 
-    this.success = true;
+    //Appel de la method pour s'enregistrer sur le serveur
+    this.imessage = this.data.registerToServer(this.usrn, this.psswd);
+
   }
 }

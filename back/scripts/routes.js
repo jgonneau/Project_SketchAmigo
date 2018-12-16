@@ -1,15 +1,13 @@
 var bcrypt		= require('bcrypt'),
 	database	= require('./database.js'),
-	activeSession, 
+	activeSession,
 	m_info = "",
 	userDB		= database.userModel,
 	roomDB		= database.roomModel;
 
+//Export des routes à employer selon l'adressage url au serveur
 module.exports = {
 
-	serge	: function (req, res) {
-		res.send('home');
-	},
 	home	: function (req, res) {
 		res.render('home');
 	},
@@ -17,18 +15,22 @@ module.exports = {
 		res.render('signup.ejs');
 	},
 	registering : function (req, res) {
-		
+
+		//Partie enregistrement
+		//L'on verifie si on recupere bien en POST les valeurs username
 		if(req.body.username && req.body.password)
 		{
+			//Si l'on trouve un username
 			var query = userDB.findOne({"username": req.body.username});
 			query.exec(function(err, exist) {
 				if (err)
 				{
 					 res.render('show_error.ejs', { msg_err: 'Database error!' });
-					 return ;
+					 return { msg_err: 'Database error!' };
 				}
 				if (!exist)
 				{
+					//Si utilisateur non déjà inscrit, l'on crypte son mot de passe
 					bcrypt.hash(req.body.password, 11, function(err, hash){
 						if (err)
 							res.send('Error= '+err);
@@ -43,17 +45,23 @@ module.exports = {
 								}
 								else
 								{
-									res.render('show_info.ejs', { msg_err: 'User registered! <a href="/login">Login here!</a>' });
+									res.render('show_info.ejs', { msg_err: "User registered!" });
+
+									////Si utilisation appel de front-end
+									res.json({"status":"OK", "message":"User registered!"})
 									return ;
 								}
 							});
 						}
-					});	
+					});
 				}
 				else
 				{
 					res.render('show_error.ejs', { msg_err: 'Username already exist!' });
-					return ;
+
+					////Si utilisation appel de front-end
+					res.json({"status":"KO", "message":"Username already exists!"})
+					return { msg_err: 'Username already exist!' };
 				}
 			});
 		}
@@ -62,34 +70,58 @@ module.exports = {
 			res.render('login.ejs', {m_info: m_info});
 	},
 	authentification : function (req, res) {
+
+		//Partie authentification
+		//L'on verifie si on recupere bien en POST les valeurs username et password
 		if (req.body.username && req.body.password)
 		{
+			//On verifie l'existance de l'utilisateur
 			var query = userDB.findOne({"username": req.body.username});
 			query.exec(function(err, exist) {
 				if (err)
 				{
 					 res.render('show_error.ejs', { msg_err: 'Database error!' });
-					 return ;
+					 return 'Database error!';
 				}
 				if (exist !== null)
 				{
-					bcrypt.compare(req.body.password, exist.password, function (err, ret) {
+					//Si l'utilisateur existe dans la base de donnee, alors
+					bcrypt.compare(req.body.password, exist.password, function (err, verif) {
 						if (err)
 							res.send('Error database!');
-						else
-						{
+						else if (verif == true){
+
+							//Si le mot de passe correspond à celui créé par l'utilisateur, alors
+							//On lui crée une session
 							activeSession = req.session;
 							activeSession.user = exist.username;
 							exist.roomid = '';
 							exist.save();
+
+							////Si utilisation appel de front-end
+							res.json({"status":"OK", "message":"User connected!", "sessionid":activeSession.user})
+
+							//On le redirige vers l'espace des rooms
 							res.redirect('/checkrooms');
-						} 
+
+						}
+						else
+						{
+								//Destruction de session si existante
+								activeSession.destroy();
+
+								////Si utilisation appel de front-end
+								res.json({"status":"KO", "message":"Erreurs identifiants!"})
+
+								res.render('show_error.ejs', { msg_err: 'Error credentials!' });
+								return ;
+						}
 					});
 				}
 				else
 				{
 					res.render('show_error.ejs', { msg_err: 'Username not found!' });
-					return ;
+					return 'Username not found!';
 				}
 			});
 		}
@@ -99,18 +131,20 @@ module.exports = {
 		}
 	},
 	logout	: function (req, res) {
-		
+
+		//Si session utilisateur déjà existante
 		if (activeSession.user)
 		{
 			var username = activeSession.user;
-			
+
+			//L'on va regarder si cet utilisateur est connecté à une room
 			roomDB.find({}, function(err, exist) {
 				if (err)
 				{
 					res.render('show_error.ejs', { msg_err: 'Database error!' });
 							 return ;
 				}
-				if (exist)
+				if (exist) //Si connecté à une room, alors on le déconnecte
 				{
 					console.log(exist);
 					exist.forEach(function(elm, idx){
@@ -119,7 +153,7 @@ module.exports = {
 							if (elm['drawer'+i] == username)
 							{
 								elm['drawer'+i] = "";
-								elm.save(function(){ 
+								elm.save(function(){
 									roomDB.remove({"drawer1": "", "drawer2": "", "drawer3": "", "drawer4": ""}, function(){
 									});
 								});
@@ -131,24 +165,25 @@ module.exports = {
 			activeSession.destroy();
 		}
 		res.redirect('/login');
-		
+
 	},
 	checkrooms : function (req, res) {
-		
+
 			roomDB.find({}, function(err, docs){
 				res.render('checkrooms.ejs', {docms: docs});
 			});
 	},
 	createroom : function (req, res) {
-		
+
+		//Si l'utilisateur connecté fait deja partie d'une room, on le redirige
 		if (activeSession.user && activeSession.room)
 		{
 				res.redirect('/drawingroom/'+activeSession.room);
 		}
-		else
+		else //sinon on génére une nouvelle room
 		{
 			roomDB.find({}, function(err, exist) {
-				
+
 					if (err)
 					{
 						res.redirect('/checkrooms');
@@ -165,9 +200,9 @@ module.exports = {
 								}
 							}
 						});
-						
+
 						var str = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890", rid = "", createRoom;
-							
+
 						for (var i = 0; i < 10; i++)
 						{
 								rid += str[Math.round(Math.random() * str.length)];
@@ -188,14 +223,16 @@ module.exports = {
 					}
 			});
 		}
-		
+
 	},
 	drawingroom : function (req, res) {
-		
+
+		//Acces aux rooms
+		//Si utilisateur deja attaché à une room, alors redirection à celle-ci
 		if (req.session.room)
 		{
 			if (req.params.roomid === req.session.room)
-			{	
+			{
 				res.render('drawingroom.ejs', { roomid: req.params.roomid, username: activeSession.user, roomname: activeSession.room });
 			}
 			else
@@ -204,7 +241,7 @@ module.exports = {
 				res.redirect('/');
 			}
 		}
-		else 
+		else //Sinon il essaye d'obtenir une place dans la room qu'il essaye d'acceder
 		{
 			if (req.params.roomid)
 			{
@@ -224,7 +261,7 @@ module.exports = {
 							else if (exist.drawer4 == '' || exist.drawer4 == activeSession.user)
 								exist.drawer4 = activeSession.user;
 							exist.save(function () {
-								activeSession.room = exist.roomid; 
+								activeSession.room = exist.roomid;
 								res.render('drawingroom.ejs', { roomid: req.params.roomid, username: activeSession.user, roomname: activeSession.room });
 							});
 						}
@@ -237,6 +274,8 @@ module.exports = {
 		}
 	},
 	noLogin : function (req, res, next) {
+
+		//Permet de filtrer les routes avec aucun login
 		if (!req.session.user)
 		{
 			next();
@@ -247,6 +286,8 @@ module.exports = {
 		}
 	},
 	requireLogin: function (req, res, next) {
+
+		//Permet de filtrer les routes avec login requis
 		if (req.session.user) {
 			activeSession = req.session;
 			next();

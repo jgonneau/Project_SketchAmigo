@@ -8,19 +8,10 @@ import { DataService } from '../data.service';
 })
 export class HomeComponent implements OnInit {
 
-  here:string = "hello";
-  appTitle = 'myapp';
   constructor(private data: DataService) { }
 
   ngOnInit() {
 
   }
-  firstClick() {
-    console.log(this.data.getTest());
-    return this.data.getTest();
-  }
 
-  affiche(){
-    return this.here;
-  }
 }
